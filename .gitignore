@@ -1,0 +1,5 @@
+/projects/
+/db/
+/docker/acme/acme.sh/*
+/docker/nginx/acme-challenge/
+/docker/nginx/ssl/

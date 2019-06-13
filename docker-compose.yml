@@ -1,0 +1,38 @@
+version: '3.1'
+
+services:
+
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: db_name
+      POSTGRES_PASSWORD: superpass
+      PGDATA: /usr/lib/postgresql/data
+    volumes:
+      - ./db/postgres:/usr/lib/postgresql/data
+
+  nginx:
+    build: ./docker/nginx/build
+    image: nginx
+    restart: always
+    volumes:
+      - ./docker/nginx/.htpasswd:/etc/nginx/.htpasswd:ro
+    #  - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./docker/nginx/acme-challenge:/usr/share/nginx/html:ro
+      - ./docker/nginx/ssl:/etc/nginx/ssl:ro
+      - ./docker/nginx/config:/etc/nginx/conf.d:ro
+      - ./projects:/srv/projects
+      - ./socket:/srv/socket
+    ports:
+      - "80:80"
+    #  - "443:443"
+
+  uwsgi:
+    build: ./docker/uwsgi/build
+    image: uwsgi
+    depends_on:
+      - postgres
+    volumes:
+      - ./projects/site:/srv/project/
+      - ./socket:/srv/socket
