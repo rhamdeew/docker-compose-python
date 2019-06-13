@@ -20,7 +20,7 @@ services:
       - ./docker/nginx/.htpasswd:/etc/nginx/.htpasswd:ro
     #  - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./docker/nginx/acme-challenge:/usr/share/nginx/html:ro
-      - ./docker/nginx/ssl:/etc/nginx/ssl:ro
+    #  - ./docker/nginx/ssl:/etc/nginx/ssl:ro
       - ./docker/nginx/config:/etc/nginx/conf.d:ro
       - ./projects:/srv/projects
       - ./socket:/srv/socket
