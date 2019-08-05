@@ -4,7 +4,7 @@ services:
 
   postgres:
     image: postgres
-    restart: always
+    restart: unless-stopped
     environment:
       POSTGRES_DB: db_name
       POSTGRES_PASSWORD: superpass
@@ -15,7 +15,7 @@ services:
   nginx:
     build: ./docker/nginx/build
     image: nginx
-    restart: always
+    restart: unless-stopped
     volumes:
       - ./docker/nginx/.htpasswd:/etc/nginx/.htpasswd:ro
     #  - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
@@ -31,6 +31,7 @@ services:
   uwsgi:
     build: ./docker/uwsgi/build
     image: uwsgi
+    restart: unless-stopped
     depends_on:
       - postgres
     volumes:
