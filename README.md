@@ -1,5 +1,7 @@
 ## Nginx + Postgres + Django uWSGI
 
+![](https://github.com/rhamdeew/docker-compose-python/workflows/Docker%20Image%20CI/badge.svg)
+
 ### Установка
 
 - Клонируем репозиторий
