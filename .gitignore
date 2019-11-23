@@ -3,3 +3,4 @@
 /docker/acme/acme.sh/*
 /docker/nginx/acme-challenge/
 /docker/nginx/ssl/
+docker-compose.override.yml

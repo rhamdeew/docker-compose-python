@@ -11,6 +11,10 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Build the stack
-      run: docker-compose up -d
-    - name: Test
+      run: make upb
+    - name: Test DB
+      run: sleep 15 && docker run --network container:docker-compose-python_nginx_1 mikesplain/telnet postgres 5432
+    - name: Test UWSGI
+      run: docker run --network container:docker-compose-python_nginx_1 mikesplain/telnet uwsgi 8000
+    - name: Test Nginx
       run: docker run --network container:docker-compose-python_nginx_1 appropriate/curl -s --retry 10 --retry-connrefused http://localhost/

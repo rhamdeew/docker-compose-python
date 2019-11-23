@@ -2,7 +2,7 @@ FROM python:alpine3.7
 
 COPY requirements.txt /requirements.txt
 
-RUN apk update && apk add --virtual build-dependencies build-base gcc wget git linux-headers jpeg-dev zlib-dev postgresql-dev
+RUN apk update && apk add --virtual build-dependencies build-base gcc wget git linux-headers jpeg-dev zlib-dev postgresql-dev postgresql-client
 
 RUN pip install uWSGI
 

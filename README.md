@@ -9,37 +9,58 @@
 - Кладем ваш проект в your-project/projects/site
 - Кладем requirements.txt вашего проекта в your-project/docker/uwsgi/build/requirements.txt
 - Правим docker/uwsgi/build/Dockerfile, заменяем там site.wsgi на свой модуль
-- Запускаем docker-compose up -d
+- Запускаем make upb (docker-compose up -d --build)
 
 
 ### Управление
+
+Для удобста управления все основные команды внесены в Makefile. Для просмотра доступных команд выполните cat Makefile.
 
 
 #### Запуск:
 
 ```
-docker-compose up -d
+#docker-compose up -d
+make up
 ```
 
 
 #### Остановка
 
 ```
-docker-compose stop
+#docker-compose stop
+make stop
 ```
 
 
 #### Просмотр статуса запущеных контейнеров
 
 ```
-docker-compose ps
+#docker-compose ps
+make ps
 ```
 
 
 #### Просмотр логов контейнера
 
 ```
-docker-compose logs -f (uwsgi|nginx|postgres)
+#docker-compose logs --tail=100 -f (uwsgi|nginx|postgres)
+make logs name=uwsgi
+```
+
+
+### Подключение к Postgres
+
+```
+#docker-compose exec uwsgi psql -U postgres -h postgres -W
+make postgres
+```
+
+
+### Просмотр реквизитов для подключения
+
+```
+make dbpass
 ```
 
 
@@ -54,7 +75,8 @@ docker-compose logs -f (uwsgi|nginx|postgres)
 Переходим в директорию acme и там выполняем:
 
 ```
-docker-compose run --rm acme acme.sh --issue -d site.ru -w /acme-challenge
+#docker-compose run --rm acme acme.sh --issue -d site.ru -w /acme-challenge
+make acme d=site.ru,www.site.ru
 ```
 
 SSL-сертификаты сохраняются в директорию docker/nginx/ssl. Чтобы все заработало нужно раскомментировать
