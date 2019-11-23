@@ -11,6 +11,11 @@ services:
       PGDATA: /usr/lib/postgresql/data
     volumes:
       - ./db/postgres:/usr/lib/postgresql/data
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: "20m"
 
   nginx:
     build: ./docker/nginx/build
@@ -27,6 +32,11 @@ services:
     ports:
       - "80:80"
     #  - "443:443"
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: "20m"
 
   uwsgi:
     build: ./docker/uwsgi/build
@@ -37,3 +47,8 @@ services:
     volumes:
       - ./projects/site:/srv/project/
       - ./socket:/srv/socket
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: "20m"
