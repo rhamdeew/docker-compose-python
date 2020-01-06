@@ -100,6 +100,13 @@ SSL-сертификаты сохраняются в директорию docker
 
 Примеры конфигов для https в docker/nginx/config/examples/
 
+_crontab_
+
+```
+25 4 * * * /usr/local/bin/docker-compose -f /srv/www/docker-compose-python/docker-compose.acme.yml run --rm acme acme.sh --cron
+30 4 * * * /usr/local/bin/docker-compose -f /srv/www/docker-compose-python/docker-compose.yml exec nginx nginx -t && /usr/local/bin/docker-compose -f /srv/www/docker-compose-python/docker-compose.yml restart nginx
+```
+
 #### Node.js
 
 ```
