@@ -36,10 +36,12 @@ ex: exec
 python:
 	docker-compose exec uwsgi /bin/ash || true
 	
-#make acme d="site.ru,www.site.ru"
-acme:
+#make ssl d="site.ru,www.site.ru"
+ssl:
 	docker-compose -f docker-compose.acme.yml run --rm acme acme.sh --issue -d `echo $(d) | sed 's/,/ \-d /g'` -w /acme-challenge
-ssl: acme
+
+acme:	
+	docker-compose -f docker-compose.acme.yml run --rm acme acme.sh
 
 node:
 	docker-compose -f docker-compose.node.yml run --rm node-10 /bin/ash || true
